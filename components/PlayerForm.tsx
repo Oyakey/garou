@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, Dispatch, SetStateAction } from 'react';
 import { View, Text, TextInput, Button, Pressable } from 'react-native';
 import tw from 'twrnc';
 import { GameState } from '@scripts/gameState';
 
-export default function PlayerForm({ setGameState, players, setPlayers }) {
+interface PlayerFormProps {
+	{ setGameState: Dispatch<SetStateAction<string>>; players: unknown[]; setPlayers:  Dispatch<SetStateAction<unknown[]>>}}
+
+export default function PlayerForm({ setGameState, players, setPlayers }:PlayerFormProps) {
 	const addPlayer = () => {
 		setPlayers([...players, { name: '' }]);
 	};
