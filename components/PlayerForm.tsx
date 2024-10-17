@@ -4,18 +4,29 @@ import tw from 'twrnc';
 import { GameState } from '@scripts/gameState';
 
 interface PlayerFormProps {
-	{ setGameState: Dispatch<SetStateAction<string>>; players: unknown[]; setPlayers:  Dispatch<SetStateAction<unknown[]>>}}
+	setGameState: Dispatch<SetStateAction<GameState>>;
+	players: Player[];
+	setPlayers: Dispatch<SetStateAction<Player[]>>;
+}
 
-export default function PlayerForm({ setGameState, players, setPlayers }:PlayerFormProps) {
+interface Player {
+	name: string;
+}
+
+export default function PlayerForm({
+	setGameState,
+	players,
+	setPlayers,
+}: PlayerFormProps) {
 	const addPlayer = () => {
 		setPlayers([...players, { name: '' }]);
 	};
 
-	const removePlayer = (key) => {
+	const removePlayer = (key: number) => {
 		setPlayers(players.filter((player, index) => index !== key));
 	};
 
-	const handleNameChange = (text, index) => {
+	const handleNameChange = (text: string, index: number) => {
 		const newPlayers = [...players];
 		newPlayers[index].name = text;
 		setPlayers(newPlayers);
@@ -23,13 +34,13 @@ export default function PlayerForm({ setGameState, players, setPlayers }:PlayerF
 
 	const handleSubmit = () => {
 		const playerNames = players.map((player) => player.name);
-		setGameState(GameState.RoleSelection);
+		setGameState(GameState.ROLE_SELECTION);
 	};
 
 	return (
 		<View style={tw`gap-4`}>
 			{players.map((player, index) => (
-				<View style={tw`flex flex-row gap-4 items-center`}>
+				<View style={tw`flex flex-row gap-4 items-center`} key={index}>
 					<TextInput
 						key={index}
 						value={player.name}
@@ -47,7 +58,7 @@ export default function PlayerForm({ setGameState, players, setPlayers }:PlayerF
 				</View>
 			))}
 			<Button
-				style={tw`mb-8`}
+				// style={tw`mb-8`}
 				title="Ajouter un joueur"
 				onPress={addPlayer}
 			/>

@@ -10,14 +10,62 @@ export class Role {
 		this.name = name;
 		this.image = image;
 		this.description = description;
+		console.log(typeof Role);
 	}
 }
 
-export const roles: Role[] = [
-	new Role('Loup-Garou'),
-	new Role('Villageois'),
-	new Role('Petite-fille'),
-	new Role('Voyante'),
-	new Role('Chasseur'),
-	new Role('Cupidon'),
+export function getRecommandedRoles(playerCount: number) {
+	console.log(playerCount);
+	if (playerCount === 6) {
+		return [
+			new LoupGarou(),
+			new LoupGarou(),
+			new Voyante(),
+			new Villageois(),
+			new Villageois(),
+			new Villageois(),
+		];
+	}
+
+	return [];
+}
+
+class LoupGarou extends Role {
+	constructor() {
+		super('Loup-Garou', '', 'Méchant');
+	}
+}
+class Voyante extends Role {
+	constructor() {
+		super('Voyante', '', 'Gentille');
+	}
+}
+class Villageois extends Role {
+	constructor() {
+		super('Villageois', '', 'Gentil');
+	}
+}
+class PetiteFille extends Role {
+	constructor() {
+		super('Petite-fille', '', 'Gentil');
+	}
+}
+class Cupidon extends Role {
+	constructor() {
+		super('Cupidon', '', 'Gentil');
+	}
+}
+class Chasseur extends Role {
+	constructor() {
+		super('Chasseur', '', 'Gentil');
+	}
+}
+
+export const roles = [
+	LoupGarou,
+	Villageois,
+	Chasseur,
+	Voyante,
+	PetiteFille,
+	Cupidon,
 ];

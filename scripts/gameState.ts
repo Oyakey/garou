@@ -1,6 +1,6 @@
 export enum GameState {
-	PlayerSelection = 1,
-	RoleSelection,
-	RoleAttribution,
-	Game,
+	PLAYER_SELECTION = 1,
+	ROLE_SELECTION,
+	ROLE_ATTRIBUTION,
+	GAME,
 }

@@ -1,16 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
-import { Alert, Pressable, Text, View, TextInput } from 'react-native';
+import { Text, View } from 'react-native';
 import { useState } from 'react';
 import tw from './scripts/tailwind';
-import Player from './scripts/player';
 import PlayerForm from './components/PlayerForm';
 import RoleSelector from './components/RoleSelector';
 import { GameState } from '@scripts/gameState';
 
 export default function App() {
-	const [gameState, setGameState] = useState(GameState.PlayerSelection);
+	const [gameState, setGameState] = useState(GameState.PLAYER_SELECTION);
 	const [players, setPlayers] = useState([{ name: '' }]);
-	const [roles, setRoles] = useState([]);
+
+	let test: { name: string } | undefined = undefined;
+
+	test = { name: 'jean' };
 
 	return (
 		<View style={tw`flex-1 bg-garou-cream py-24 px-5`}>
@@ -19,18 +21,18 @@ export default function App() {
 			>
 				Latelier des loups-garous
 			</Text>
-			{gameState === GameState.PlayerSelection ? (
+			{gameState === GameState.PLAYER_SELECTION ? (
 				<PlayerForm
 					setGameState={setGameState}
 					players={players}
 					setPlayers={setPlayers}
 				/>
-			) : gameState === GameState.RoleSelection ? (
+			) : gameState === GameState.ROLE_SELECTION ? (
 				<RoleSelector setgameState={setGameState} players={players} />
-			) : gameState === GameState.RoleAttribution ? (
-				<RoleSelector setgameState={setGameState} />
+			) : gameState === GameState.ROLE_ATTRIBUTION ? (
+				<RoleSelector setgameState={setGameState} players={players} />
 			) : (
-				<RoleSelector setgameState={setGameState} />
+				<RoleSelector setgameState={setGameState} players={players} />
 			)}
 			<StatusBar style="auto" />
 		</View>
